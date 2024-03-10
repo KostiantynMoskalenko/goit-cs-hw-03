@@ -5,7 +5,7 @@ from dotenv import dotenv_values
 
 config = dotenv_values('.env')
 try:
-    uri = f"mongodb+srv://{config['USER']}:{config['PASSWORD']}@cluster1.z0xs4cu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1" # noqa
+    uri = f"mongodb+srv://{config['USER']}:{config['PASSWORD']}@cluster1.z0xs4cu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1"
 except ConnectionFailure:
     print('Щось пішло не так. Не вдалося підключитися до бази даних.')
 
@@ -135,7 +135,8 @@ def replace_feature():
         name = input("Введіть ім'я кота: ")
         features_input = input("Введіть нові особливості кота замість старих через крапку з комою ';' ")
         new_features = features_input.split("; ")
-        result = db.cats.update_one({"name": name}, {"$set": {"features": new_features}})
+        result = db.cats.update_one({"name": name},
+                                    {"$set": {"features": new_features}})
         if result.modified_count > 0:
             print(f"Особливості кота {name} змінено на нові")
         else:
@@ -217,5 +218,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
